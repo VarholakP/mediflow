@@ -7,7 +7,38 @@ interface AppointmentCardProps {
   isHighlighted?: boolean;
 }
 
+function getDateAndTimeLabels(appointmentDate: string) {
+  const d = new Date(appointmentDate);
+
+  if (isNaN(d.getTime())) {
+    return {
+      dateLabel: appointmentDate,
+      timeLabel: "",
+    };
+  }
+
+  const dateLabel = d.toLocaleDateString("sk-SK", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
+  const timeLabel = d.toLocaleTimeString("sk-SK", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  return { dateLabel, timeLabel };
+}
+
 export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardProps) {
+  const { dateLabel, timeLabel } = getDateAndTimeLabels(appointment.appointmentDate);
+
+  const now = new Date();
+  const appDate = new Date(appointment.appointmentDate);
+  const diffMs = appDate.getTime() - now.getTime();
+  const isSoon = diffMs > 0 && diffMs <= 1000 * 60 * 60;
+
   return (
     <Box
       borderWidth="1px"
@@ -22,18 +53,13 @@ export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardP
       mb={4}
     >
       <Flex justify="space-between" align="flex-start">
-        {/* ľavá strana */}
         <Box flex="1" mr={6}>
           <Box mb={4}>
             <Text fontWeight="semibold" fontSize="lg">
               {appointment.doctorName}
             </Text>
-            <Text fontSize="sm" color="purple.500">
-              {appointment.specialty}
-            </Text>
           </Box>
 
-          {/* info bloky */}
           <Flex
             direction={{ base: "column", md: "row" }}
             flexWrap="wrap"
@@ -46,7 +72,7 @@ export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardP
               <Box as={LuCalendarDays} mt={1} mr={2} />
               <Box>
                 <Text fontWeight="medium">Date</Text>
-                <Text>{appointment.dateLabel}</Text>
+                <Text>{dateLabel}</Text>
               </Box>
             </Flex>
 
@@ -54,7 +80,7 @@ export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardP
               <Box as={LuClock} mt={1} mr={2} />
               <Box>
                 <Text fontWeight="medium">Time</Text>
-                <Text>{appointment.timeLabel}</Text>
+                <Text>{timeLabel}</Text>
               </Box>
             </Flex>
 
@@ -70,20 +96,19 @@ export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardP
               <Box as={LuMapPin} mt={1} mr={2} />
               <Box>
                 <Text fontWeight="medium">Location</Text>
-                <Text>{appointment.location}</Text>
+                <Text>{appointment.address}</Text>
               </Box>
             </Flex>
           </Flex>
         </Box>
 
-        {/* pravá strana – status + tlačidlá */}
         <Box
           minWidth="120px"
           display="flex"
           flexDirection="column"
           alignItems="flex-end"
         >
-          {appointment.status === "Soon" && (
+          {isSoon && (
             <Badge
               borderRadius="999px"
               px={3}
