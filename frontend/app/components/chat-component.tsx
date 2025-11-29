@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { ScrollArea } from "@chakra-ui/react";
 import ChatLog from "./chat-log";
 import ChatInput from "./chat-input";
 import { useState } from "react";
@@ -51,10 +51,18 @@ function ChatComponent() {
 
     return (
         <>
-            <Box width={"full"} height={"vh"} rounded={"md"} display={"flex"} flexDir={"column"}>
-                <ChatLog messages={messages} />
-                <ChatInput buttonAction={handleSend} value={inputValue} setValue={setInputValue} />
-            </Box>
+            <ScrollArea.Root>
+            <ScrollArea.Viewport>
+                <ScrollArea.Content width={"full"} height={"auto"} rounded={"md"} display={"flex"} flexDir={"column"}>
+                    <ChatLog messages={messages} />
+                </ScrollArea.Content>
+            </ScrollArea.Viewport>
+            <ScrollArea.Scrollbar>
+                <ScrollArea.Thumb />
+            </ScrollArea.Scrollbar>
+            <ScrollArea.Corner />
+            </ScrollArea.Root>
+            <ChatInput buttonAction={handleSend} value={inputValue} setValue={setInputValue} />
         </>
     );
 }
