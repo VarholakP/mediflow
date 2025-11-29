@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router";
-import logo from "../../public/logo.png";
+//import logo from "../../public/logo.png";
 
 
 const navItems = [
   { label: "Home", to: "/" },
   { label: "Appointments", to: "/appointments" },
-  { label: "Whatever", to: "/whatever" },
+  { label: "New Appointment", to: "/create-appointment" },
 ];
 
 interface SidebarLayoutProps {
@@ -39,14 +39,14 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
     marginBottom: "48px",
   }}
 >
-  <img
+{/*   <img
     src={logo}
     alt="Brand Logo"
     style={{
       width: "200px",  // zväčšenie
       opacity: 0.9,
     }}
-  />
+  /> */}
 </div>
 
         <nav

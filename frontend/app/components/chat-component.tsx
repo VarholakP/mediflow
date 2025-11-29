@@ -9,6 +9,10 @@ interface messageObject {
     timestamp: string
 }
 
+interface messageJsonObject {
+    message:string 
+}
+
 function getTimestamp() {
     const date = new Date();
     return date.getMonth()
@@ -29,26 +33,30 @@ function sendMessage(message: messageObject) {
     });
 }
 
-async function fetchAIResponse(message: messageObject): Promise<string> {
+async function fetchAIResponse(message: messageJsonObject): Promise<messageObject> {
     try {
         const response = await fetch("/api/ai", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+            "Content-Type": "application/json"
             },
             body: JSON.stringify({ message: message.message })
         });
         const data = await response.json();
-        return data.reply || "(No response)";
+        return {
+            message: data.reply || "(No response)",
+            user: false,
+            timestamp: getTimestamp()
+        };
     } catch (error) {
         console.error("Error fetching AI response:", error);
-        return "Sorry, there was an error getting a response.";
+        return { message: "There was an error with our server", user:false,timestamp:getTimestamp()};
     }
 }
 
 function ChatComponent() {
     const [messages, setMessages] = useState([
-        { message: "Hello I am Edward and I have a Roxor in my knee", user: true, timestamp: getTimestamp() }
+        { message: "Hello my name is Susan and I need medical assistance", user: true, timestamp: getTimestamp() }
     ]);
     const [inputValue, setInputValue] = useState("");
 
@@ -67,7 +75,7 @@ function ChatComponent() {
         const aiReply = await fetchAIResponse(messageObject);
         setMessages(prev => [
             ...prev,
-            { message: aiReply, user: false, timestamp: getTimestamp() }
+            aiReply
         ]);
     };
 
