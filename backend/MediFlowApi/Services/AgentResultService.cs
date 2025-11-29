@@ -1,4 +1,4 @@
-using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using MediFlowApi.Models;
 using Newtonsoft.Json;
 
@@ -6,78 +6,97 @@ namespace MediFlowApi.Services
 {
     public class AgentResultService
     {
-        private readonly HttpClient myHttpClient;
-        private readonly string myOpenAiApiKey;
+        private readonly HttpClient _httpClient;
+        private readonly string _openAiApiKey;
 
-        public AgentResultService(HttpClient client, string ApiKey)
+        public AgentResultService(HttpClient client, IConfiguration config)
         {
-            myHttpClient = client;
-            myOpenAiApiKey = ApiKey;
+            _httpClient = client;
+            _openAiApiKey = config["OpenAI:ApiKey"]
+                ?? throw new InvalidOperationException("Missing OpenAI API key");
         }
 
-        private async Task<string> CatchPrompt(AgentMessage message)
+        private async Task<string> CatchPromptAsync(AgentMessage message, IEnumerable<string> availableTimeSlots)
         {
-            myHttpClient.DefaultRequestHeaders.Clear();
-            myHttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer{myOpenAiApiKey}");
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_openAiApiKey}");
+
+            var systemPrompt = @"
+                You are an appointment-booking AI assistant for the MediFlow healthcare system.
+                Your only job is to analyze the patient's message and extract the necessary data 
+                to create a general practitioner appointment request.
+
+                You must always return a valid JSON array with exactly one object inside it.
+                The JSON must use these exact fields and spelling:
+
+                - AppointmentId
+                - ClinicianName
+                - Specialization
+                - Issue
+                - AppointmentDate
+                - TimeSlot
+                - Address
+
+                Do not include any other information.
+                Do not include any explanation outside of the JSON.
+                Do not include code block formatting.
+
+                Valid response example:
+                [
+                    {
+                        ""AppointmentId"": ""1"",
+                        ""ClinicianName"": ""Mudr. Petra Svobodová"",
+                        ""Specialization"": ""General Medicine"",
+                        ""Issue"": ""Routine Check-up"",
+                        ""AppointmentDate"": ""2025-11-29"",
+                        ""TimeSlot"": ""08:00 - 08:30"",
+                        ""Address"": ""Trieda SNP 1, 040 13 Košice""
+                    }
+                ]
+
+                Rules:
+                    - AppointmentId is always a string, you do NOT have to ensure uniqueness.
+                    - Always use ClinicianName = ""Mudr. Petra Svobodová"" and Specialization = ""General Medicine"" unless told otherwise.
+                    - Issue must be derived from the user's message. If not specified, use ""Unknown issue"".
+                    - AppointmentDate should be today's date in format YYYY-MM-DD.
+                    - TimeSlot must be chosen from the list of available time slots provided by the system.
+                    - Address is always ""Trieda SNP 1, 040 13 Košice"". 
+                    ";
+
+            var userContent = $@"
+                Patient message:
+                    {message.prompt}
+
+                Available time slots:
+                    {string.Join(", ", availableTimeSlots)}
+                ";
 
             var body = new
             {
                 model = "gpt-5.1",
-                message = new[]
+                messages = new[]
                 {
-                    new { role = "system", 
-                        content = @"You are an appointment-booking AI assistant for the MediFlow healthcare system.
-                                    Your only job is to analyze the patient's message and extract the neccessary data to create a general practitioner appointment request.
-                                    
-                                    You must always return valid JSON array with exactly one object indside it.
-                                    The JSON must use these exact fields and spelling:
-                                    
-                                    - AppointmentId
-                                    - ClinicianName
-                                    - Specialization
-                                    - Issue
-                                    - AppointmentDate
-                                    - TimeSlot
-                                    - Address
-                                    
-                                    - Do not include any other informations.
-                                    - Do not include any explanation outside of the JSON.
-                                    - Do not include code block formatting.
-                                    
-                                    Valid response example:
-                                    [
-                                        {
-                                            ""AppointmentId"": ""1"",
-                                            ""ClinicianName"": ""Mudr. Petra Svobodová"",
-                                            ""Specialization"": ""General Medicine"",
-                                            ""Issue"": ""Routine Check-up"",
-                                            ""AppointmentDate"": ""2025-11-29"",
-                                            ""TimeSlot"": ""08:00 - 08:30"",
-                                            ""Address"": ""Trieda SNP 1, 040 13 Košice"" 
-                                        }
-                                    ]
-                                    
-                                    Rules:
-                                        - AppointmentId is always auto increment.
-                                        - Always fill ClinicianName and Specialization from file Data/Clinician.json where ClinicianName is Mudr. Petra Svobodová and Specialization is General Medicine
-                                        - Issue has to be pulled from message if there is not specified issue fill with unknown issue.
-                                        - For AppointmentDate always fill todays date.
-                                        - For TimeSlot look into Data/timeSlots.json if there is slot which has available set to true u can choose this.
-                                        - Address always pull from Data/Clinicians.json where Address is specified, always pull addres for General Medicine specialization.
-                                        
-                                    At the end create appointment and save that response you created into Data/patientAgentResult.json and
-                                    in Data/timeSlot.json change available to false when you booked specific slot."
-                        },
-                        new { role = "user", content = message.prompt}
+                    new { role = "system", content = systemPrompt },
+                    new { role = "user", content = userContent }
                 }
             };
 
-            var response = await myHttpClient.PostAsync("https://api.openai.com/v1/chat/completions",
-                new StringContent(JsonConvert.SerializeObject(body)));
+            var jsonBody = JsonConvert.SerializeObject(body);
+            var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync(
+                "https://api.openai.com/v1/chat/completions",
+                content
+            );
+
+            response.EnsureSuccessStatusCode();
 
             var respString = await response.Content.ReadAsStringAsync();
             dynamic result = JsonConvert.DeserializeObject(respString);
-            return result.choices[0].message.content;
+
+            // toto je čistý JSON string, ktorý agent vrátil (tvoj appointment array)
+            string assistantJson = result.choices[0].message.content;
+            return assistantJson;
         }
     }
 }

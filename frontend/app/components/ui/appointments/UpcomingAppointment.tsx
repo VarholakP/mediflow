@@ -11,7 +11,7 @@ export function UpcomingAppointments() {
   useEffect(() => {
     const loadAppointments = async () => {
       try {
-        const res = await fetch("/api/appointment/appointments");
+        const res = await fetch("http://localhost:5209/api/appointment/appointments");
 
         if (!res.ok) {
           throw new Error(`HTTP error ${res.status}`);
