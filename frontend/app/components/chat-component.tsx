@@ -7,7 +7,7 @@ function ChatComponent() {
         <>
             <Box width={"full"} height={"vh"} rounded={"md"} display={"flex"} flexDir={"column"}>
                 <ChatLog></ChatLog>
-                <ChatInput></ChatInput>
+                <ChatInput buttonAction={undefined}></ChatInput>
             </Box>
         </> 
     );

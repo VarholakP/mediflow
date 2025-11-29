@@ -1,34 +1,44 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 
 type ChatMessageProps = {
     message: string;
     timestamp?: string;
+    user:boolean;
 };
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message, timestamp }) => (
+function getTimestamp() {
+    const date = new Date();
+    return date.getMonth()
+    +"\/" + date.getDate()
+    + "\/" + date.getFullYear()
+    + ", " + date.getHours()
+    + ":" + date.getMinutes()
+}
+
+const ChatMessage: React.FC<ChatMessageProps> = ({ message, user }) => (
     <>
-    <div style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-end",
-        margin: "8px 0"
-    }}>
-        <div style={{
-            background: "#0078fe",
-            color: "#fff",
-            padding: "10px 16px",
-            borderRadius: "16px 16px 4px 16px",
-            maxWidth: "70%",
-            wordBreak: "break-word"
-        }}>
+    <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-end"
+        margin="8px 0"
+    >
+        <Box
+            bg={user?"blue.500":"gray.200"}
+            color={user?"white":"black"}
+            px={4}
+            py={2.5}
+            borderRadius={"16px 16px 4px 16px"}
+            maxW={"50%"}
+            wordBreak={"break-word"}
+        >
             {message}
-        </div>
-        {timestamp && (
+        </Box>
             <span style={{ fontSize: "0.75rem", color: "#888", marginTop: "4px" }}>
-                {timestamp}
+                {getTimestamp()}
             </span>
-        )}
-    </div>
+    </Box>
     </>
     
 );
