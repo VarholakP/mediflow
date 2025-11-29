@@ -1,6 +1,6 @@
 # Build artrifacts
-backend/**/bin/
-backend/**/obj/
+bin/
+obj/
 *.pdb
 *.mdb
 *.dbmdl
