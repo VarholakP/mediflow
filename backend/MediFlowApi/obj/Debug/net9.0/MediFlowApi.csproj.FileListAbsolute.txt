@@ -1,0 +1,8 @@
+C:\Hackathon25\mediflow\backend\MediFlowApi\obj\Debug\net9.0\MediFlowApi.csproj.AssemblyReference.cache
+C:\Hackathon25\mediflow\backend\MediFlowApi\obj\Debug\net9.0\MediFlowApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Hackathon25\mediflow\backend\MediFlowApi\obj\Debug\net9.0\MediFlowApi.AssemblyInfoInputs.cache
+C:\Hackathon25\mediflow\backend\MediFlowApi\obj\Debug\net9.0\MediFlowApi.AssemblyInfo.cs
+C:\Hackathon25\mediflow\backend\MediFlowApi\obj\Debug\net9.0\MediFlowApi.csproj.CoreCompileInputs.cache
+C:\Hackathon25\mediflow\backend\MediFlowApi\obj\Debug\net9.0\MediFlowApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Hackathon25\mediflow\backend\MediFlowApi\obj\Debug\net9.0\MediFlowApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Hackathon25\mediflow\backend\MediFlowApi\obj\Debug\net9.0\MediFlowApi.sourcelink.json
