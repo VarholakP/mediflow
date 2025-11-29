@@ -12,3 +12,7 @@ obj/
 *.rsuser
 *.ide/
 *.sln.docstates
+
+# Environment variables
+.env
+
