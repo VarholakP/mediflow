@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, ScrollArea } from "@chakra-ui/react";
 import ChatMessage from "./chat-message";
 
 interface MessageObject {
@@ -11,11 +11,19 @@ interface MessageObject {
 function ChatLog({ messages }: { messages: MessageObject[] }) {
     return (
         <>
-            <Box height={"full"} padding={"4"}>
-                {messages.map((msg:MessageObject, idx) => (
+            <ScrollArea.Root height={"full"} padding={"4"}>
+            <ScrollArea.Viewport>
+                <ScrollArea.Content >
+                    {messages.map((msg:MessageObject, idx) => (
                     <ChatMessage key={idx} message={msg.message} timestamp={msg.timestamp} user={msg.user} />
-                ))}
-            </Box>
+                    ))}
+                </ScrollArea.Content>
+            </ScrollArea.Viewport>
+            <ScrollArea.Scrollbar>
+                <ScrollArea.Thumb />
+            </ScrollArea.Scrollbar>
+            <ScrollArea.Corner />
+            </ScrollArea.Root>
         </>
     );
 }
