@@ -4,8 +4,8 @@ namespace MediFlowApi.Models
     {
         public int id {get; set;}
         public int patientId {get; set;}
-        public string patientName {get; set;}
-        public string doctorName {get; set;}
-        public string message {get; set;}
+        public string patientName {get; set;} = string.Empty;
+        public string doctorName {get; set;} = string.Empty;
+        public string message {get; set;} = string.Empty;
     }
 }
