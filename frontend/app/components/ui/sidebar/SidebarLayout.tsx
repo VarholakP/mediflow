@@ -5,7 +5,7 @@ import { NavLink } from "react-router";
 const navItems = [
   { label: "Home", to: "/" },
   { label: "Appointments", to: "/appointments" },
-  { label: "Whatever", to: "/whatever" },
+  { label: "New Appointment", to: "/create-appointment" },
 ];
 
 interface SidebarLayoutProps {
@@ -45,7 +45,7 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
       width: "200px",
       opacity: 0.9,
     }}
-  />
+  /> */}
 </div>
 
         <nav

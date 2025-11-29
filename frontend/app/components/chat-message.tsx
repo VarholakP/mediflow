@@ -7,25 +7,16 @@ type ChatMessageProps = {
     user:boolean;
 };
 
-function getTimestamp() {
-    const date = new Date();
-    return date.getMonth()
-    +"\/" + date.getDate()
-    + "\/" + date.getFullYear()
-    + ", " + date.getHours()
-    + ":" + date.getMinutes()
-}
-
 const ChatMessage: React.FC<ChatMessageProps> = ({ message, user, timestamp }) => (
     <>
     <Box
         display="flex"
         flexDirection="column"
-        alignItems="flex-end"
+        alignItems={user?"flex-end":"flex-start"}
         margin="8px 0"
     >
         <Box
-            bg={user?"blue.500":"gray.200"}
+            bg={user?"#006494":"gray.200"}
             color={user?"white":"black"}
             px={4}
             py={2.5}

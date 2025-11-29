@@ -23,21 +23,20 @@ namespace MediFlowApi.Services
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_openAiApiKey}");
 
-
             // Load valid values from local data
             var clinicians = LoadClinicians();
             var timeslots = LoadTimeSlots();
             var patientName = GetPatientNameById(message.patientId.ToString());
 
-            var validDoctors = string.Join(", ", clinicians.Select(c => c.ClinicianName));
-            var validAddresses = string.Join(", ", clinicians.Select(c => c.Address));
+            // Prepare clinicians info for AI
+            var cliniciansInfo = string.Join("; ", clinicians.Select(c => $"Name: {c.ClinicianName}, Specialization: {c.Specialization}, Address: {c.Address}"));
             var validSlots = string.Join(", ", timeslots.Where(t => t.available).Select(t => t.slot));
 
             var systemPrompt = $"Patient name: {patientName}. " +
+                "Here is a list of clinicians with their names, specializations, and addresses: " + cliniciansInfo + ". " +
+                "Based on the patient's message, determine the most suitable medical specialization. Then, select a doctor from the list of clinicians who matches that specialization. " +
                 "Respond only in JSON with the following fields: patientName, doctorName, address, appointmentDate, reason. " +
                 $"Set the patientName field to the patient's name: {patientName}. " +
-                $"Valid doctorName values: {validDoctors}. " +
-                $"Valid address values: {validAddresses}. " +
                 $"Valid appointmentDate values: {validSlots}. " +
                 "Do not invent new doctors, addresses, dates, or patient names. Only use these values.";
 
@@ -68,6 +67,7 @@ namespace MediFlowApi.Services
 
         public async Task<Appointment> GetAppointmentFromAIAsync(PatientMessage message)
         {
+            string filePath = Path.Combine("Data", "AppointmentDoctorToDoctor.json");
             string aiResponse = await AnalyzeMessageWithAIAsync(message);
             Console.WriteLine("AI Response: " + aiResponse);
             Appointment appointment = JsonConvert.DeserializeObject<Appointment>(aiResponse);
@@ -79,6 +79,8 @@ namespace MediFlowApi.Services
             {
                 throw new Exception("The appointment details provided by the AI are invalid.");
             }
+
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(appointment, Formatting.Indented));
             return appointment; 
         }
 
