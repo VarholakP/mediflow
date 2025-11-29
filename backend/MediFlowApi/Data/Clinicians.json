@@ -1,0 +1,52 @@
+[
+    {
+        "ClinicianName": "Mudr. Jan Novak",
+        "Specialization": "Cardiology",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Petra Svobodová",
+        "Specialization": "General Medicine",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Martin Kováč",
+        "Specialization": "Dermatology",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Lucia Horváthová",
+        "Specialization": "Pediatrics",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Tomáš Bielik",
+        "Specialization": "Orthopedics",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Anna Farkašová",
+        "Specialization": "Gynecology",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Peter Varga",
+        "Specialization": "Neurology",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Katarína Molnárová",
+        "Specialization": "Ophthalmology",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Richard Baláž",
+        "Specialization": "ENT (Ear, Nose, Throat)",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    },
+    {
+        "ClinicianName": "MUDr. Zuzana Černá",
+        "Specialization": "Psychiatry",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    }
+]

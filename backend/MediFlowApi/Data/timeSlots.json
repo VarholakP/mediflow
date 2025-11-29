@@ -1,0 +1,54 @@
+[
+    {
+        "slot": "08:00 - 08:30",
+        "available": true
+    },
+    {
+        "slot": "08:35 - 09:05",
+        "available": false
+    },
+    {
+        "slot": "09:10 - 09:40",
+        "available": true
+    },
+    {
+        "slot": "09:45 - 10:15",
+        "available": true
+    },
+    {
+        "slot": "10:20 - 10:50",
+        "available": true
+    },
+    {
+        "slot": "10:55 - 11:25",
+        "available": true
+    },
+    {
+        "slot": "11:30 - 12:00",
+        "available": true
+    },
+    {
+        "slot": "12:30 - 13:00",
+        "available": true
+    },
+    {
+        "slot": "13:05 - 13:35",
+        "available": true
+    },
+    {
+        "slot": "13:40 - 14:10",
+        "available": true
+    },
+    {
+        "slot": "14:15 - 14:45",
+        "available": true
+    },
+    {
+        "slot": "14:50 - 15:20",
+        "available": true
+    },
+    {
+        "slot": "15:25 - 15:55",
+        "available": true
+    }
+]

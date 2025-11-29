@@ -1,0 +1,11 @@
+[
+    {
+        "AppointmentId": "1",
+        "ClinicianName": "Mudr. Petra Svobodová",
+        "Specialization": "General Medicine",
+        "Issue": "Routine Check-up",
+        "AppointmentDate": "2025-11-29",
+        "TimeSlot": "08:00 - 08:30",
+        "Address": "Trieda SNP 1, 040 11 Košice"
+    }
+]
