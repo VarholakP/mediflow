@@ -7,37 +7,49 @@ interface AppointmentCardProps {
   isHighlighted?: boolean;
 }
 
-function getDateAndTimeLabels(appointmentDate: string) {
+function getDateAndTimeLabels(appointmentDate: string, timeSlot: string) {
   const d = new Date(appointmentDate);
+  const hasValidDate = !isNaN(d.getTime());
 
-  if (isNaN(d.getTime())) {
-    return {
-      dateLabel: appointmentDate,
-      timeLabel: "",
-    };
-  }
+  const dateLabel = hasValidDate
+    ? d.toLocaleDateString("sk-SK", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+    : appointmentDate;
 
-  const dateLabel = d.toLocaleDateString("sk-SK", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-
-  const timeLabel = d.toLocaleTimeString("sk-SK", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  // čas buď z timeSlot, alebo (fallback) z appointmentDate
+  const timeLabel =
+    timeSlot ||
+    (hasValidDate
+      ? d.toLocaleTimeString("sk-SK", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "");
 
   return { dateLabel, timeLabel };
 }
 
 export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardProps) {
-  const { dateLabel, timeLabel } = getDateAndTimeLabels(appointment.appointmentDate);
+  const { dateLabel, timeLabel } = getDateAndTimeLabels(
+    appointment.appointmentDate,
+    appointment.timeSlot
+  );
 
   const now = new Date();
-  const appDate = new Date(appointment.appointmentDate);
+
+  // pokusíme sa spraviť plný Date z dátumu + času
+  let appDate = new Date(appointment.appointmentDate);
+  const combined = new Date(`${appointment.appointmentDate}T${appointment.timeSlot}`);
+
+  if (!isNaN(combined.getTime())) {
+    appDate = combined;
+  }
+
   const diffMs = appDate.getTime() - now.getTime();
-  const isSoon = diffMs > 0 && diffMs <= 1000 * 60 * 60;
+  const isSoon = diffMs > 0 && diffMs <= 1000 * 60 * 60; // do 1 hodiny
 
   return (
     <Box
@@ -53,13 +65,20 @@ export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardP
       mb={4}
     >
       <Flex justify="space-between" align="flex-start">
+        {/* ľavá strana */}
         <Box flex="1" mr={6}>
           <Box mb={4}>
             <Text fontWeight="semibold" fontSize="lg">
-              {appointment.doctorName}
+              {appointment.clinicianName}
             </Text>
+            {appointment.specialization && (
+              <Text fontSize="sm" color="purple.500">
+                {appointment.specialization}
+              </Text>
+            )}
           </Box>
 
+          {/* info bloky */}
           <Flex
             direction={{ base: "column", md: "row" }}
             flexWrap="wrap"
@@ -88,7 +107,7 @@ export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardP
               <Box as={LuFileText} mt={1} mr={2} />
               <Box>
                 <Text fontWeight="medium">Reason for Visit</Text>
-                <Text>{appointment.reason}</Text>
+                <Text>{appointment.issue}</Text>
               </Box>
             </Flex>
 
@@ -102,6 +121,7 @@ export function AppointmentCard({ appointment, isHighlighted }: AppointmentCardP
           </Flex>
         </Box>
 
+        {/* pravá strana – status + tlačidlá */}
         <Box
           minWidth="120px"
           display="flex"
