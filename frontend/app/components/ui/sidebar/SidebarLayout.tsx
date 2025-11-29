@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router";
-import logo from "../../public/logo.png";
 
 
 const navItems = [
@@ -40,10 +39,10 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
   }}
 >
   <img
-    src={logo}
+    src="/logo.png"    
     alt="Brand Logo"
     style={{
-      width: "200px",  // zväčšenie
+      width: "200px",
       opacity: 0.9,
     }}
   />
@@ -73,8 +72,8 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
                     alignItems: "center",
                     whiteSpace: "nowrap",
                     fontSize: "14px",
-                    background: isActive ? "#111827" : "transparent",
-                    color: isActive ? "#ffffff" : "#4b5563",
+                    background: isActive ? "#619dcdff" : "transparent",
+                    color: isActive ? "#ffffff" : "#4b5563ff",
                     cursor: "pointer",
                   }}
                 >

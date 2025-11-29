@@ -1,41 +1,55 @@
+import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { AppointmentCard } from "./AppointmentCard";
 import type { Appointment } from "./types";
 
-const mockAppointments: Appointment[] = [
-  {
-    id: "1",
-    doctorName: "Dr. Sarah Mitchell",
-    specialty: "General Practitioner",
-    dateLabel: "Tuesday, December 2, 2025",
-    timeLabel: "10:30 AM",
-    reason: "Annual checkup and blood pressure monitoring",
-    location: "Main Medical Center, Room 305",
-    status: "Soon",
-  },
-  {
-    id: "2",
-    doctorName: "Dr. James Chen",
-    specialty: "Cardiologist",
-    dateLabel: "Friday, December 5, 2025",
-    timeLabel: "2:00 PM",
-    reason: "Follow-up consultation for heart condition",
-    location: "Cardiology Wing, 2nd Floor",
-    status: "Scheduled",
-  },
-  {
-    id: "3",
-    doctorName: "Dr. Emily Rodriguez",
-    specialty: "Dermatologist",
-    dateLabel: "Monday, December 8, 2025",
-    timeLabel: "9:15 AM",
-    reason: "Evaluation of skin rash and irritation",
-    location: "Dermatology Clinic, Room 210",
-    status: "Scheduled",
-  },
-];
-
 export function UpcomingAppointments() {
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadAppointments = async () => {
+      try {
+        const res = await fetch("/api/appointment/appointments");
+
+        if (!res.ok) {
+          throw new Error(`HTTP error ${res.status}`);
+        }
+
+        const data: Appointment[] = await res.json();
+        setAppointments(data);
+      } catch (err: any) {
+        console.error("Error loading appointments:", err);
+        setError(err.message ?? "Unknown error");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAppointments();
+  }, []);
+
+  if (loading) {
+    return <Text px={4} py={6}>Loading appointments…</Text>;
+  }
+
+  if (error) {
+    return (
+      <Box px={4} py={6}>
+        <Text color="red.500">Failed to load appointments: {error}</Text>
+      </Box>
+    );
+  }
+
+  if (appointments.length === 0) {
+    return (
+      <Box px={4} py={6}>
+        <Text>No appointments found.</Text>
+      </Box>
+    );
+  }
+
   return (
     <Box w="100%" bg="gray.50" minH="100vh" py={10} px={{ base: 4, md: 8 }}>
       <Box maxW="5xl" mx="auto">
@@ -48,9 +62,9 @@ export function UpcomingAppointments() {
           </Text>
         </Box>
 
-        {mockAppointments.map((appt, index) => (
+        {appointments.map((appt, index) => (
           <AppointmentCard
-            key={appt.id}
+            key={`${appt.doctorName}-${appt.appointmentDate}-${index}`}
             appointment={appt}
             isHighlighted={index === 0}
           />
