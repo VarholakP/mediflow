@@ -1,3 +1,14 @@
 # Build artrifacts
-bin/
-obj/
+backend/**/bin/
+backend/**/obj/
+*.pdb
+*.mdb
+*.dbmdl
+*.log
+*.cache
+.vs/
+*.user
+*.suo
+*.rsuser
+*.ide/
+*.sln.docstates

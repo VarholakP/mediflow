@@ -3,7 +3,7 @@ import React from "react";
 
 type ChatMessageProps = {
     message: string;
-    timestamp?: string;
+    timestamp: string;
     user:boolean;
 };
 
@@ -16,7 +16,7 @@ function getTimestamp() {
     + ":" + date.getMinutes()
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message, user }) => (
+const ChatMessage: React.FC<ChatMessageProps> = ({ message, user, timestamp }) => (
     <>
     <Box
         display="flex"
@@ -36,7 +36,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, user }) => (
             {message}
         </Box>
             <span style={{ fontSize: "0.75rem", color: "#888", marginTop: "4px" }}>
-                {getTimestamp()}
+                {timestamp}
             </span>
     </Box>
     </>
