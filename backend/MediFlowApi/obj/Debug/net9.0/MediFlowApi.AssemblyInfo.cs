@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MediFlowApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebbd3591c8b154254962fd14c6691407062bc873")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+850bc9f8ef96bd10f22a39e1051aaaf98235f6e5")]
 [assembly: System.Reflection.AssemblyProductAttribute("MediFlowApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MediFlowApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

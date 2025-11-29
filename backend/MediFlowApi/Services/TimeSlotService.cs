@@ -1,7 +1,6 @@
 using MediFLowApi.Models;
 using System.Text.Json;
 
-
 namespace MediFlowApi.Services
 {
     public class TimeSlotService
