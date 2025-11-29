@@ -1,14 +1,24 @@
 import { Box, Button, Textarea } from "@chakra-ui/react";
-import { Input } from "@chakra-ui/react";
 
-function ChatInput({buttonAction}) {
-    return ( 
-    <>
-        <Box display={"flex"} flexDirection={"row"} padding={"2"} borderRadius={"md"} borderWidth={"1px"}>
-            <Textarea autoresize marginRight={"4"}/>
-            <Button alignSelf={"end"} onClick={buttonAction}>Submit</Button>
-        </Box>
-    </> 
+interface ChatInputProps {
+    buttonAction: () => void;
+    value: string;
+    setValue: (value: string) => void;
+}
+
+function ChatInput({ buttonAction, value, setValue }: ChatInputProps) {
+    return (
+        <>
+            <Box display={"flex"} flexDirection={"row"} padding={"2"} borderTopWidth={"1px"}>
+                <Textarea
+                    value={value}
+                    onChange={e => setValue(e.target.value)}
+                    marginRight={"4"}
+                    autoresize
+                />
+                <Button alignSelf={"end"} onClick={buttonAction}>Submit</Button>
+            </Box>
+        </>
     );
 }
 
