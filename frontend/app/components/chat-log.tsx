@@ -1,11 +1,20 @@
 import { Box } from "@chakra-ui/react";
 import ChatMessage from "./chat-message";
 
-function ChatLog() {
+interface MessageObject {
+    message:string; 
+    user:boolean; 
+    timestamp: string;
+}
+
+
+function ChatLog({ messages }: { messages: MessageObject[] }) {
     return (
         <>
-            <Box borderRadius={"md"} borderWidth={"1px"} height={"full"} padding={"4"}>
-                <ChatMessage message="Hello I am Edward and I have a Roxor in my knee" timestamp="bababooey" user={true}/>
+            <Box height={"full"} padding={"4"}>
+                {messages.map((msg:MessageObject, idx) => (
+                    <ChatMessage key={idx} message={msg.message} timestamp={msg.timestamp} user={msg.user} />
+                ))}
             </Box>
         </>
     );
