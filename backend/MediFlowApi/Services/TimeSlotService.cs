@@ -1,4 +1,4 @@
-using MediFLowApi.Models;
+using MediFlowApi.Models;
 using System.Text.Json;
 
 namespace MediFlowApi.Services

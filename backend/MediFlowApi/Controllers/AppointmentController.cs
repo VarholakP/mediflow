@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MediFlowApi.Services;
 
 namespace MediFlowApi.Controllers
@@ -9,10 +8,12 @@ namespace MediFlowApi.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly TimeSlotService myTimeSlotService;
+        private readonly AppointmentService myAppointmentService;
 
-        public AppointmentController(TimeSlotService timeSlotService)
+        public AppointmentController(TimeSlotService timeSlotService, AppointmentService appService)
         {
             myTimeSlotService = timeSlotService;
+            myAppointmentService = appService;
         }
 
         [HttpGet("available-timeslots")]
@@ -20,6 +21,13 @@ namespace MediFlowApi.Controllers
         {
             var slots = myTimeSlotService.GetAllTimeSlots();
             return Ok(slots);
+        }
+
+        [HttpGet("appointments")]
+        public IActionResult getAppointments()
+        {
+            var appointments = myAppointmentService.GetAllAppointments();
+            return Ok(appointments);
         }
     }
 }

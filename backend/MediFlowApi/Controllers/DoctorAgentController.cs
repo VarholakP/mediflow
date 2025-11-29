@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MediFlowApi.Models;
 using MediFlowApi.Services;
-using System.Threading.Tasks;
 
 namespace MediFlowApi.Controllers
 {

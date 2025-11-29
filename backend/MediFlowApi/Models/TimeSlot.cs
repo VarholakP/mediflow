@@ -1,4 +1,4 @@
-namespace MediFLowApi.Models
+namespace MediFlowApi.Models
 {
     public class TimeSlot
     {

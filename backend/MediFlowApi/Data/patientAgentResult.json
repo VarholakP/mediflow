@@ -1,6 +1,6 @@
 [
     {
-        "AppointmentId": "1",
+        "AppointmentId": 1,
         "ClinicianName": "Mudr. Petra Svobodová",
         "Specialization": "General Medicine",
         "Issue": "Routine Check-up",
