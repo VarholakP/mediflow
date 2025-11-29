@@ -47,5 +47,20 @@ namespace MediFlowApi.Services
             Appointment appointment = JsonConvert.DeserializeObject<Appointment>(aiResponse);
             return appointment; 
         }
-    }
-}
+
+        private List<Clinician> LoadClinicians()
+        {
+            var path = path.combine("Data", "clinicians.json");
+            var json = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<List<Clinician>>(json);
+        }
+
+        private List<TimeSlot> LoadTimeSlots()
+        {
+            var path = path.combine("Data", "timeslots.json");
+            var json = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<List<TimeSlot>>(json);
+        }
+
+        private bool IsValidAppointment(Appointment appointment, List)
+    }}
