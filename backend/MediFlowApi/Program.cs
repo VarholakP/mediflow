@@ -1,5 +1,8 @@
 using MediFlowApi.Services;
+using DotNetEnv;
 
+// Load environment variables from .env in the parent backend directory
+Env.Load("../.env");
 var builder = WebApplication.CreateBuilder(args);
 
 // 1) Services
@@ -23,7 +26,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register DoctorAgentService with HttpClient and API key from configuration
-var openAiApiKey = builder.Configuration["OpenAI:ApiKey"] ?? "YOUR_OPENAI_API_KEY";
+var openAiApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY") ?? "YOUR_OPENAI_API_KEY";
 builder.Services.AddHttpClient<DoctorAgentService>()
     .AddTypedClient((httpClient, sp) =>
         new DoctorAgentService(httpClient, openAiApiKey));
@@ -31,6 +34,7 @@ builder.Services.AddHttpClient<DoctorAgentService>()
 // 2) Build
 var app = builder.Build();
 
+Console.WriteLine("Loaded OpenAI API Key: " + openAiApiKey);
 
 // 3) Middleware
 // app.UseHttpsRedirection();
