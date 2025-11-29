@@ -1,6 +1,5 @@
 import React from "react";
 import ChatComponent from "~/components/chat-component";
-import ChatLog from "~/components/chat-log";
 
 // Minimal loader to satisfy React Router requirements
 export function loader() {
@@ -15,7 +14,7 @@ interface State {
     
 }
  
-class Whatever extends React.Component<Props, State> {
+class CreateAppointment extends React.Component<Props, State> {
     state = { count: 0 }
     render() { 
         return (
@@ -26,4 +25,4 @@ class Whatever extends React.Component<Props, State> {
     }
 }
  
-export default Whatever;
+export default CreateAppointment;
