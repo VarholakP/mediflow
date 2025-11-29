@@ -1,7 +1,9 @@
 export interface Appointment {
-  patientName: string;
-  doctorName: string;
+  appointmentId: number;
+  clinicianName: string;
+  specialization: string;
+  issue: string;
+  appointmentDate: string;
+  timeSlot: string;
   address: string;
-  appointmentDate: string; 
-  reason: string;
 }

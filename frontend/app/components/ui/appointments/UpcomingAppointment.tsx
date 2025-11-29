@@ -31,7 +31,11 @@ export function UpcomingAppointments() {
   }, []);
 
   if (loading) {
-    return <Text px={4} py={6}>Loading appointments…</Text>;
+    return (
+      <Text px={4} py={6}>
+        Loading appointments…
+      </Text>
+    );
   }
 
   if (error) {
@@ -64,7 +68,7 @@ export function UpcomingAppointments() {
 
         {appointments.map((appt, index) => (
           <AppointmentCard
-            key={`${appt.doctorName}-${appt.appointmentDate}-${index}`}
+            key={`${appt.appointmentId ?? index}-${appt.appointmentDate}`}
             appointment={appt}
             isHighlighted={index === 0}
           />
