@@ -15,8 +15,9 @@ function ChatInput({ buttonAction, value, setValue }: ChatInputProps) {
                     onChange={e => setValue(e.target.value)}
                     marginRight={"4"}
                     autoresize
+                    color={"black"}
                 />
-                <Button alignSelf={"end"} onClick={buttonAction}>Submit</Button>
+                <Button color={"white"} bgColor={"#006494"} alignSelf={"end"} onClick={buttonAction}>Submit</Button>
             </Box>
         </>
     );
