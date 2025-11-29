@@ -2,7 +2,7 @@ namespace MediFlowApi.Models
 {
     public class Appointment
     {
-        public string id { get; set; } = string.Empty;
+        public string patientName { get; set; } = string.Empty;
         public string doctorName { get; set; } = string.Empty;
         public string address { get; set; } = string.Empty;
         public string appointmentDate { get; set; } = string.Empty;

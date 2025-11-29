@@ -23,19 +23,23 @@ namespace MediFlowApi.Services
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_openAiApiKey}");
 
+
             // Load valid values from local data
             var clinicians = LoadClinicians();
             var timeslots = LoadTimeSlots();
+            var patientName = GetPatientNameById(message.patientId.ToString());
 
             var validDoctors = string.Join(", ", clinicians.Select(c => c.ClinicianName));
             var validAddresses = string.Join(", ", clinicians.Select(c => c.Address));
             var validSlots = string.Join(", ", timeslots.Where(t => t.available).Select(t => t.slot));
 
-            var systemPrompt = $"Respond only in JSON with the following fields: id, doctorName, address, appointmentDate, reason that is in therminology used among Clinicians. " +
+            var systemPrompt = $"Patient name: {patientName}. " +
+                "Respond only in JSON with the following fields: patientName, doctorName, address, appointmentDate, reason. " +
+                $"Set the patientName field to the patient's name: {patientName}. " +
                 $"Valid doctorName values: {validDoctors}. " +
                 $"Valid address values: {validAddresses}. " +
                 $"Valid appointmentDate values: {validSlots}. " +
-                "Do not invent new doctors, addresses, or dates. Only use these values.";
+                "Do not invent new doctors, addresses, dates, or patient names. Only use these values.";
 
             var requestBody = new
             {
@@ -91,6 +95,21 @@ namespace MediFlowApi.Services
             var json = File.ReadAllText(path);
             return JsonConvert.DeserializeObject<List<TimeSlot>>(json);
         }
+
+        
+            private List<Patient> LoadPatients()
+            {
+                var path = Path.Combine("Data", "patients.json");
+                var json = File.ReadAllText(path);
+                return JsonConvert.DeserializeObject<List<Patient>>(json);
+            }
+
+            private string GetPatientNameById(string patientId)
+            {
+                var patients = LoadPatients();
+                var patient = patients.FirstOrDefault(p => p.id == patientId);
+                return patient?.name ?? "Unknown Patient";
+            }
 
         private bool IsValidAppointment(Appointment appointment, List<Clinician> clinicians, List<TimeSlot> timeslots)
         {
