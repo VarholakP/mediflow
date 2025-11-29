@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router";
-/* import logo from "../../public/logo.png"; */
+import logo from "../../public/logo.png";
 
 
 const navItems = [
@@ -31,27 +31,23 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
           background: "#ffffff",
         }}
       >
-        <div
-          style={{
-            fontWeight: 600,
-            fontSize: "20px",
-            marginBottom: "32px",
-            whiteSpace: "nowrap",
-            color: "#111827",
-          }}
-        >
-          MediFlow
-        </div>
         {/* LOGO */}
-        {/* <img
-          src={logo}
-          alt="Brand Logo"
-          style={{
-            width: "120px",
-            marginBottom: "48px",
-            opacity: 0.9,
-          }}
-        /> */}
+<div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "48px",
+  }}
+>
+  <img
+    src={logo}
+    alt="Brand Logo"
+    style={{
+      width: "200px",  // zväčšenie
+      opacity: 0.9,
+    }}
+  />
+</div>
 
         <nav
           style={{
