@@ -25,7 +25,7 @@ function getTimestamp() {
 
 
 function sendMessage(message: messageJsonObject) {
-    return fetch("/api/patientagent/process", {
+    return fetch("http://localhost:5209/api/patientagent/process", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -36,7 +36,7 @@ function sendMessage(message: messageJsonObject) {
 
 async function fetchAIResponse(message: messageJsonObject): Promise<messageObject> {
     try {
-        const response = await fetch("/api/ai", {
+        const response = await fetch("http://localhost:5209/api/patientagent/process", {
             method: "POST",
             headers: {
             "Content-Type": "application/json"
