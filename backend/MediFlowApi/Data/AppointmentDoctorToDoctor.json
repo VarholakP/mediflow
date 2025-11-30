@@ -25,5 +25,14 @@
     "appointmentDate": "2025.11.30",
     "reason": "Pacient uvádza bolesť nohy, vhodné ortopedické vyšetrenie.",
     "TimeSlot": "09:10 - 09:40"
+  },
+  {
+    "patientName": "Tomáš Bielik",
+    "doctorName": "Mudr. Jan Novak",
+    "specialization": "Cardiology",
+    "address": "Trieda SNP 1, 040 11 Košice",
+    "appointmentDate": "2025.11.30",
+    "reason": "Bolestivé pichanie na hrudníku a s tým súvisiaca nespavosť – vyšetrenie možnej kardiálnej príčiny.",
+    "TimeSlot": "09:10 - 09:40"
   }
 ]

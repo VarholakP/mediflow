@@ -26,14 +26,7 @@ function getDateAndTimeLabels(appointmentDate: string, timeSlot?: string) {
       })
     : appointmentDate;
 
-  const timeLabel =
-    timeSlot ||
-    (hasValidDate
-      ? d.toLocaleTimeString("sk-SK", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      : "");
+  const timeLabel = timeSlot || "";
 
   return { dateLabel, timeLabel };
 }
@@ -44,7 +37,8 @@ export function AdminAppointmentCard({
   onCreateAppointment,
 }: AdminDoctorAppointmentCardProps) {
   const { dateLabel, timeLabel } = getDateAndTimeLabels(
-    appointment.appointmentDate
+    appointment.appointmentDate,
+    appointment.timeSlot
   );
 
   return (

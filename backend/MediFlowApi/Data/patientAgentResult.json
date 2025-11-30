@@ -31,6 +31,7 @@
   },
   {
     "PatientId": "3",
+    "PatientName": "",
     "ClinicianName": "Mudr. Petra Svobodov\u00E1",
     "Specialization": "General Medicine",
     "Issue": "N\u00E1hle v\u00FDrazn\u00E9 \u0165a\u017Ekosti doln\u00FDch kon\u010Dat\u00EDn",
@@ -54,6 +55,16 @@
     "ClinicianName": "Mudr. Petra Svobodov\u00E1",
     "Specialization": "General Medicine",
     "Issue": "Cudzie teleso v oblasti kolena",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "PatientId": "5",
+    "PatientName": "Tom\u00E1\u0161 Bielik",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Bolestiv\u00E9 pichanie na hrudn\u00EDku, nespavos\u0165",
     "AppointmentDate": "2025-11-30",
     "TimeSlot": "08:00 - 08:30",
     "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
