@@ -6,4 +6,5 @@ export interface Appointment {
   appointmentDate: string;
   timeSlot: string;
   address: string;
+  patientName: string;
 }

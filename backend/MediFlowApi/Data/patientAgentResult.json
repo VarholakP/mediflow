@@ -1,6 +1,7 @@
 [
   {
     "PatientId": "1",
+    "PatientName": "",
     "ClinicianName": "Mudr. Petra Svobodov\u00E1",
     "Specialization": "General Medicine",
     "Issue": "Bolestivos\u0165 doln\u00FDch kon\u010Dat\u00EDn ne\u0161pecifikovan\u00E1",
@@ -10,6 +11,7 @@
   },
   {
     "PatientId": "1",
+    "PatientName": "",
     "ClinicianName": "Mudr. Petra Svobodov\u00E1",
     "Specialization": "General Medicine",
     "Issue": "Opakovan\u00E9 opuchy kolena po z\u00E1\u0165a\u017Ei",
@@ -19,6 +21,7 @@
   },
   {
     "PatientId": "2",
+    "PatientName": "",
     "ClinicianName": "Mudr. Petra Svobodov\u00E1",
     "Specialization": "General Medicine",
     "Issue": "Pretrv\u00E1vaj\u00FAci opuch hornej kon\u010Datiny",
@@ -31,6 +34,26 @@
     "ClinicianName": "Mudr. Petra Svobodov\u00E1",
     "Specialization": "General Medicine",
     "Issue": "N\u00E1hle v\u00FDrazn\u00E9 \u0165a\u017Ekosti doln\u00FDch kon\u010Dat\u00EDn",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "PatientId": "3",
+    "PatientName": "Petra Svobodov\u00E1",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Trval\u00E9 bolesti v oblasti panvy",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "09:10 - 09:40",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "PatientId": "4",
+    "PatientName": "Lucia Horv\u00E1thov\u00E1",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Cudzie teleso v oblasti kolena",
     "AppointmentDate": "2025-11-30",
     "TimeSlot": "08:00 - 08:30",
     "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"

@@ -56,7 +56,8 @@ to create a general practitioner appointment request.
 You must always return a valid JSON array with exactly one object inside it.
 The JSON must use these exact fields and spelling:
 
-- PatientId:
+- PatientId
+- PatientName
 - ClinicianName
 - Specialization
 - Issue
@@ -72,6 +73,7 @@ Valid response example:
 [
   {
     ""PatientId"": ""1"",
+    ""PatientName"": ""Jana Novakova""
     ""ClinicianName"": ""Mudr. Petra Svobodová"",
     ""Specialization"": ""General Medicine"",
     ""Issue"": ""Routine Check-up"",
@@ -83,6 +85,7 @@ Valid response example:
 
 Rules:
 - Always use use PatientId = ""1"".
+- Always select PatientName which is connected to PatientId.
 - Always use ClinicianName = ""Mudr. Petra Svobodová"" and Specialization = ""General Medicine"" unless told otherwise.
 - The field ""Issue"" MUST NOT be a raw copy of the patient's sentence.
   Always transform the patient's wording into clinically appropriate description in Slovak, it should have 4-7 words.

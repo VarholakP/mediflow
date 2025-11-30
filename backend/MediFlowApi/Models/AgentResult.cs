@@ -3,6 +3,7 @@ namespace MediFlow.Models
     public class AgentResult
     {
         public string PatientId { get; set; } = string.Empty;
+        public string PatientName { get; set; } = string.Empty;
         public string ClinicianName { get; set;}  = string.Empty;
         public string Specialization { get; set; } = string.Empty;
         public string Issue { get; set; } = string.Empty;
