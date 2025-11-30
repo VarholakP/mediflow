@@ -15,11 +15,18 @@ namespace MediFlowApi.Controllers
             _doctorAgentService = doctorAgentService;
         }
 
-        [HttpPost("GetAppointment")]
+        [HttpPost("createAppointment")]
         public async Task<ActionResult<Appointment>> AnalyzeMessage([FromBody] PatientMessage message)
         {
             var appointment = await _doctorAgentService.GetAppointmentFromAIAsync(message);
             return Ok(appointment);
+        }
+
+        [HttpGet("getAllAppointments")]
+        public async Task<ActionResult<List<Appointment>>> getAllAppointments()
+        {
+            var appointements = _doctorAgentService.GetAllAppointments();
+            return Ok(appointements);
         }
     }
 }
