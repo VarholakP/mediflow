@@ -1,7 +1,8 @@
-import { Box } from "@chakra-ui/react";
+import { Button, Drawer, Avatar, IconButton } from "@chakra-ui/react";
 import ChatLog from "./chat-log";
 import ChatInput from "./chat-input";
 import { useState } from "react";
+import { MdEmail } from "react-icons/md";
 
 interface messageObject {
     message:string 
@@ -55,6 +56,8 @@ async function fetchAIResponse(message: messageJsonObject): Promise<messageObjec
 }
 
 function ChatComponent() {
+    const [open, setOpen] = useState(false)
+
     const [messages, setMessages] = useState([
         { message: "Hello my name is Susan and I need medical assistance", user: true, timestamp: getTimestamp() }
     ]);
@@ -81,10 +84,34 @@ function ChatComponent() {
 
     return (
         <>
-            <Box width={"full"} height={"94vh"} rounded={"md"} display={"flex"} flexDir={"column"}>
-                <ChatLog messages={messages} />
-                <ChatInput buttonAction={handleSend} value={inputValue} setValue={setInputValue} />
-            </Box>
+            
+            <Drawer.Root placement={"bottom"} open={open}  onOpenChange={(e) => setOpen(e.open)} size={"lg"}>
+            <Drawer.Backdrop />
+            <Drawer.Trigger asChild>
+                <IconButton rounded={"full"} size={"2xl"} bgColor={"#006494"} color={"white"} pos={"absolute"} right={"10"} bottom={"8"}>
+                    <MdEmail/>
+                </IconButton>
+            </Drawer.Trigger>
+            <Drawer.Positioner paddingLeft={"60%"} paddingRight={"40"} paddingTop={"50%"}>
+                <Drawer.Content minW={"450px"} bgColor={"white"}>
+                <Drawer.CloseTrigger />
+                <Drawer.Header bgColor={"#006494"}>
+                    <Avatar.Root size={"md"}>
+                        <Avatar.Fallback name="Segun Adebayo" />
+                        <Avatar.Image src="https://bit.ly/sage-adebayo" />
+                    </Avatar.Root>
+                    <Drawer.Title>Medical Assistant</Drawer.Title>
+                </Drawer.Header>
+                <Drawer.Body padding={"0"}>
+                    {/* <Box width={"full"} height={"100"} rounded={"md"} display={"flex"} flexDir={"column"}> */}
+                        <ChatLog messages={messages} />
+                        <ChatInput buttonAction={handleSend} value={inputValue} setValue={setInputValue} />
+                    {/* </Box> */}
+                </Drawer.Body>
+                <Drawer.Footer />
+                </Drawer.Content>
+            </Drawer.Positioner>
+            </Drawer.Root>
         </>
     );
 }
