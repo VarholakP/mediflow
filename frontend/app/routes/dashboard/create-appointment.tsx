@@ -19,7 +19,6 @@ class CreateAppointment extends React.Component<Props, State> {
     render() { 
         return (
             <>
-            <ChatComponent></ChatComponent>
             </>
         );
     }

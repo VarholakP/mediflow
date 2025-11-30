@@ -21,7 +21,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, user, timestamp }) =
             px={4}
             py={2.5}
             borderRadius={"16px 16px 4px 16px"}
-            maxW={"50%"}
+            maxW={"80%"}
             wordBreak={"break-word"}
         >
             {message}
