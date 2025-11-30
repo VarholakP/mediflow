@@ -14,7 +14,7 @@ interface AdminDoctorAppointmentCardProps {
   onCreateAppointment?: (appointment: AdminAppointment) => void;
 }
 
-function getDateAndTimeLabels(appointmentDate: string) {
+function getDateAndTimeLabels(appointmentDate: string, timeSlot?: string) {
   const d = new Date(appointmentDate);
   const hasValidDate = !isNaN(d.getTime());
 
@@ -26,12 +26,14 @@ function getDateAndTimeLabels(appointmentDate: string) {
       })
     : appointmentDate;
 
-  const timeLabel = hasValidDate
-    ? d.toLocaleTimeString("sk-SK", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    : "";
+  const timeLabel =
+    timeSlot ||
+    (hasValidDate
+      ? d.toLocaleTimeString("sk-SK", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "");
 
   return { dateLabel, timeLabel };
 }
