@@ -6,6 +6,7 @@ export default [
     layout("./routes/dashboard/_layout.tsx", [
         route("create-appointment", "./routes/dashboard/create-appointment.tsx"),
         route("appointments", "./routes/dashboard/appointments.tsx"),
-        route("adminappointments", "./routes/dashboard/admin-appointments.tsx")
+        route("adminappointments", "./routes/dashboard/admin-appointments.tsx"),
+        route("gpadminappointments", "./routes/dashboard/gp-admin-appointments.tsx")
     ])
 ] satisfies RouteConfig;
