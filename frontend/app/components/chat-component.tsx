@@ -84,15 +84,15 @@ function ChatComponent() {
     return (
         <>
             
-            <Drawer.Root placement={"bottom"} open={open}  onOpenChange={(e) => setOpen(e.open)} size={"lg"}>
+            <Drawer.Root open={open}  onOpenChange={(e) => setOpen(e.open)} size={"sm"}>
             <Drawer.Backdrop />
             <Drawer.Trigger asChild>
-                <IconButton rounded={"full"} size={"2xl"} bgColor={"#006494"} color={"white"} pos={"fixed"} right={"10"} bottom={"8"}>
+                <IconButton rounded={"full"} size={"2xl"} bgColor={"#006494"} color={"white"} pos={"fixed"} right={"10"} top={"8"}>
                     <MdEmail/>
                 </IconButton>
             </Drawer.Trigger>
-            <Drawer.Positioner paddingLeft={"60%"} paddingRight={"40"} paddingTop={"50%"}>
-                <Drawer.Content minW={"450px"} bgColor={"white"}>
+            <Drawer.Positioner paddingLeft={"60%"} paddingTop={"15vh"}>
+                <Drawer.Content minW={"400px"} bgColor={"white"} maxH={"620px"}>
                 <Drawer.CloseTrigger />
                 <Drawer.Header bgColor={"#006494"}>
                     <Drawer.Title>Medical Assistant</Drawer.Title>

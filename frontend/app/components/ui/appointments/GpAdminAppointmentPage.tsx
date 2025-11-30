@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import type { Appointment } from "./types";
 import { GpAppointmentCard } from "./GpAppointmentCard";
+import { Toaster } from "@chakra-ui/react";
+import { toaster } from "../toaster";
 
 export function GpAdminAppointmentsPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -30,31 +32,50 @@ export function GpAdminAppointmentsPage() {
     loadAppointments();
   }, []);
 
-  // 🔹 handler na POST createAppointment
-  const handleCreateAppointment = async (appointment: Appointment) => {
-    try {
-      const res = await fetch(
-        "http://localhost:5209/api/DoctorAgent/createAppointment",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(appointment), // pošleš celý JSON tak ako ho máš z GETu
-        }
-      );
-
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`HTTP error ${res.status}: ${text}`);
+const handleCreateAppointment = async (appointment: Appointment) => {
+  try {
+    const res = await fetch(
+      "http://localhost:5209/api/DoctorAgent/createAppointment",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(appointment),
       }
+    );
 
-      console.log("Appointment created successfully");
+    if (!res.ok) {
+      const text = await res.text();
 
-    } catch (err) {
-      console.error("Error creating appointment:", err);
+      toaster.create({
+        title: "Error",
+        description: `Failed to create appointment (${res.status})`,
+        type: "error",
+      });
+
+      throw new Error(`HTTP error ${res.status}: ${text}`);
     }
-  };
+
+    toaster.create({
+      title: "Success",
+      description: "Appointment created successfully!",
+      type: "success",
+    });
+
+    console.log("Appointment created successfully");
+
+  } catch (err) {
+    console.error("Error creating appointment:", err);
+
+    toaster.create({
+      title: "Error",
+      description: "Something went wrong while creating appointment.",
+      type: "error",
+    });
+  }
+};
+
 
   if (loading) {
     return (
@@ -97,7 +118,7 @@ export function GpAdminAppointmentsPage() {
             key={`${appt.appointmentId ?? index}-${appt.appointmentDate}`}
             appointment={appt}
             isHighlighted={index === 0}
-            onCreateAppointment={handleCreateAppointment} // 🔹 TU POSIELAŠ HANDLER
+            onCreateAppointment={handleCreateAppointment} 
           />
         ))}
       </Box>
