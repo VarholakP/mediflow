@@ -1,4 +1,4 @@
-import { UpcomingAppointments } from "../../components/ui/appointments/UpcomingAppointment";
+import { UpcomingAppointments } from "~/components/ui/appointments/AppointmentsPage";
 
 export function loader() {
   return null;
