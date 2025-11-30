@@ -82,9 +82,11 @@ Valid response example:
 ]
 
 Rules:
-- Alwayuse use PatientId = ""1"".
+- Always use use PatientId = ""1"".
 - Always use ClinicianName = ""Mudr. Petra Svobodová"" and Specialization = ""General Medicine"" unless told otherwise.
-- Issue must be derived from the user's message. If not specified, use ""Unknown issue"".
+- The field ""Issue"" MUST NOT be a raw copy of the patient's sentence.
+  Always transform the patient's wording into clinically appropriate description in Slovak, it should have 4-7 words.
+  Never include slang, emojis, or whole sentence in ""Issue"".
 - AppointmentDate should be today's date in format YYYY-MM-DD.
 - TimeSlot must be chosen from the list of available time slots provided by the system.
   You can assume all of them are always available.

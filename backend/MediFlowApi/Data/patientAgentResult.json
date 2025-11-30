@@ -1,2 +1,29 @@
 [
+  {
+    "PatientId": "1",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Bolestivos\u0165 doln\u00FDch kon\u010Dat\u00EDn ne\u0161pecifikovan\u00E1",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "PatientId": "1",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Opakovan\u00E9 opuchy kolena po z\u00E1\u0165a\u017Ei",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "09:10 - 09:40",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "PatientId": "2",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Pretrv\u00E1vaj\u00FAci opuch hornej kon\u010Datiny",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  }
 ]

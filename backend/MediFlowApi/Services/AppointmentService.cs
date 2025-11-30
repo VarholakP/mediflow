@@ -37,6 +37,24 @@ namespace MediFlowApi.Services
                             ?? new List<AgentResult>();
 
             var existing = await loadAppointmentsAsync();
+            int nextId = existing.Any()
+                ? existing.Max(x => int.Parse(x.PatientId)) + 1
+                : 1;
+            
+            if (nextId > 5)
+            {
+                nextId = 1;
+            }
+            foreach (var item in newAppointments)
+            {
+                item.PatientId = nextId.ToString();
+                nextId++;
+
+                if (nextId > 5)
+                {
+                    nextId = 1;
+                }
+            }
             existing.AddRange(newAppointments);
 
             await SaveAppointmentsAsync(existing);
