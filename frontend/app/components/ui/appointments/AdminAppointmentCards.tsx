@@ -87,7 +87,6 @@ export function AdminAppointmentCard({
             </Text>
           </Box>
 
-          {/* info bloky */}
           <Flex
             direction={{ base: "column", md: "row" }}
             flexWrap="wrap"
@@ -147,25 +146,6 @@ export function AdminAppointmentCard({
           flexDirection="column"
           alignItems="flex-end"
         >
-          <Button
-            size="sm"
-            colorScheme="purple"
-            borderRadius="999px"
-            width="160px"
-            mb={2}
-            onClick={() => onCreateAppointment?.(appointment)}
-          >
-            Create appointment
-          </Button>
-
-          <Button
-            size="sm"
-            variant="outline"
-            borderRadius="999px"
-            width="160px"
-          >
-            View details
-          </Button>
         </Box>
       </Flex>
     </Box>
