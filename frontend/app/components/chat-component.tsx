@@ -31,6 +31,7 @@ function sendMessage(message: messageJsonObject) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(message)
+
     });
 }
 
@@ -58,9 +59,7 @@ async function fetchAIResponse(message: messageJsonObject): Promise<messageObjec
 function ChatComponent() {
     const [open, setOpen] = useState(false)
 
-    const [messages, setMessages] = useState([
-        { message: "Hello my name is Susan and I need medical assistance", user: true, timestamp: getTimestamp() }
-    ]);
+    const [messages, setMessages] = useState<messageObject[]>([]);
     const [inputValue, setInputValue] = useState("");
 
 
@@ -73,13 +72,12 @@ function ChatComponent() {
             messageObject
         ]);
         setInputValue("");
-        sendMessage(messageJsonObject);
-
-        // Fetch AI response and add to chat log
-        const aiReply = await fetchAIResponse(messageJsonObject);
+        //sendMessage(messageJsonObject);
+        sendMessage(messageJsonObject)
+        // Fetch AI response and add to chat log);
         setMessages(prev => [
             ...prev,
-            aiReply
+            { message: "Your appointment is awaiting approval! You will be notified in the Appointment Tab for more Information.", user: false, timestamp: getTimestamp() }
         ]);
     };
 
@@ -89,7 +87,7 @@ function ChatComponent() {
             <Drawer.Root placement={"bottom"} open={open}  onOpenChange={(e) => setOpen(e.open)} size={"lg"}>
             <Drawer.Backdrop />
             <Drawer.Trigger asChild>
-                <IconButton rounded={"full"} size={"2xl"} bgColor={"#006494"} color={"white"} pos={"absolute"} right={"10"} bottom={"8"}>
+                <IconButton rounded={"full"} size={"2xl"} bgColor={"#006494"} color={"white"} pos={"fixed"} right={"10"} bottom={"8"}>
                     <MdEmail/>
                 </IconButton>
             </Drawer.Trigger>
@@ -97,10 +95,6 @@ function ChatComponent() {
                 <Drawer.Content minW={"450px"} bgColor={"white"}>
                 <Drawer.CloseTrigger />
                 <Drawer.Header bgColor={"#006494"}>
-                    <Avatar.Root size={"md"}>
-                        <Avatar.Fallback name="Segun Adebayo" />
-                        <Avatar.Image src="https://bit.ly/sage-adebayo" />
-                    </Avatar.Root>
                     <Drawer.Title>Medical Assistant</Drawer.Title>
                 </Drawer.Header>
                 <Drawer.Body padding={"0"}>

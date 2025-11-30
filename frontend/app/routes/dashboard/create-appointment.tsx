@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import ChatComponent from "~/components/chat-component";
 
@@ -19,6 +20,9 @@ class CreateAppointment extends React.Component<Props, State> {
     render() { 
         return (
             <>
+            <Box height={"200vh"} >
+                aaa
+            </Box>
             </>
         );
     }
