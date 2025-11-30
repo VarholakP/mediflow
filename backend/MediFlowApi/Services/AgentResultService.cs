@@ -21,7 +21,7 @@ namespace MediFlowApi.Services
         public AgentResultService(HttpClient client, IConfiguration config, AppointmentService appService, TimeSlotService timeSlotService)
         {
             myHttpClient = client;
-            myApiKey = config["OpenAI:ApiKey"]
+            myApiKey = config["OpenAI:ApiKey"]?.Trim()
                 ?? throw new InvalidOperationException("Missing OpenAI API key");
             myAppointmentService = appService;
             myTimeSlotService = timeSlotService;

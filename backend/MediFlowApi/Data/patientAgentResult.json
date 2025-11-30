@@ -1,6 +1,6 @@
 [
   {
-    "AppointmentId": 1,
+    "AppointmentId": "1",
     "ClinicianName": "Mudr. Petra Svobodov\u00E1",
     "Specialization": "General Medicine",
     "Issue": "Routine Check-up",
@@ -9,12 +9,48 @@
     "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
   },
   {
-    "AppointmentId": 2,
+    "AppointmentId": "2",
     "ClinicianName": "Mudr. Petra Svobodov\u00E1",
     "Specialization": "General Medicine",
     "Issue": "CT-Scan",
     "AppointmentDate": "2025-11-29",
     "TimeSlot": "08:35 - 09:05",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "AppointmentId": "1",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Dlhodob\u00E9 bolesti kolena",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "AppointmentId": "1",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Dlhodob\u00E9 probl\u00E9my s rukou, kontroln\u00E9 vy\u0161etrenie",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "AppointmentId": "1",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Dlhodob\u00E9 probl\u00E9my s rukou, \u017Eiados\u0165 o kontrolu",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "AppointmentId": "1",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "Dlhodob\u00E9 probl\u00E9my s rukou, kontroln\u00E9 vy\u0161etrenie",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
     "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
   }
 ]
