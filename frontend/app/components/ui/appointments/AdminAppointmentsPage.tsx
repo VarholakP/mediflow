@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { AdminAppointmentCard } from "./AdminAppointmentCards";
@@ -59,10 +58,40 @@ export function AdminAppointmentsPage() {
     );
   }
 
-  // handler na klik "Create appointment" – zatiaľ len placeholder
-  const handleCreateAppointment = (appt: AdminAppointment) => {
-    console.log("Create real appointment from suggestion:", appt);
-    // tu neskôr spravíš POST na backend alebo otvoríš modal/form
+  const handleCreateAppointment = async (appt: AdminAppointment) => {
+    try {
+      const res = await fetch(
+        "http://localhost:5209/api/DoctorAgent/createAppointment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(appt),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error ${res.status}`);
+      }
+
+      // ak chceš po vytvorení appointment odstrániť zo zoznamu AI návrhov:
+      setAppointments((prev) =>
+        prev.filter(
+          (a) =>
+            !(
+              a.patientName === appt.patientName &&
+              a.doctorName === appt.doctorName &&
+              a.appointmentDate === appt.appointmentDate
+            )
+        )
+      );
+
+      console.log("Appointment successfully created");
+    } catch (err) {
+      console.error("Error creating appointment:", err);
+      // tu môžeš neskôr dať toast z Chakra UI
+    }
   };
 
   return (
@@ -89,4 +118,3 @@ export function AdminAppointmentsPage() {
     </Box>
   );
 }
-
