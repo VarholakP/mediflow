@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MediFlowApi.Services;
+using System.Threading.Tasks;
 
 namespace MediFlowApi.Controllers
 {
@@ -17,16 +18,16 @@ namespace MediFlowApi.Controllers
         }
 
         [HttpGet("available-timeslots")]
-        public IActionResult GetTimeSlots()
+        public async Task<IActionResult> GetTimeSlots()
         {
-            var slots = myTimeSlotService.GetAllTimeSlots();
+            var slots = myTimeSlotService.GetAvailableSlotsAsync();
             return Ok(slots);
         }
 
         [HttpGet("appointments")]
-        public IActionResult getAppointments()
+        public async Task<IActionResult> getAppointments()
         {
-            var appointments = myAppointmentService.GetAllAppointments();
+            var appointments = await myAppointmentService.GetAllAppointmentsAsync();
             return Ok(appointments);
         }
     }

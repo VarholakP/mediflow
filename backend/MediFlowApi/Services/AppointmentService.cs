@@ -7,22 +7,46 @@ namespace MediFlowApi.Services
     public class AppointmentService
     {
         private readonly string appointmentPath;
+        private readonly JsonSerializerOptions myJsonOptions = new()
+        {
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true
+        };
 
         public AppointmentService(IWebHostEnvironment env)
         {
             appointmentPath = Path.Combine(env.ContentRootPath, "Data", "patientAgentResult.json");
         }
 
-        private List<AgentResult> loadAppointments()
+        private async Task<List<AgentResult>> loadAppointmentsAsync()
         {
             var json = File.ReadAllText(appointmentPath);
-            return JsonSerializer.Deserialize<List<AgentResult>>(json) ?? new List<AgentResult>();
+            return JsonSerializer.Deserialize<List<AgentResult>>(json, myJsonOptions)
+                ?? new List<AgentResult>();
         }
 
-        public IEnumerable<AgentResult> GetAllAppointments()
+        private async Task SaveAppointmentsAsync(List<AgentResult> appointments)
         {
-            return loadAppointments()
-                .Where(x => x.AppointmentId != null);
+            var json = JsonSerializer.Serialize(appointments, myJsonOptions);
+            await File.WriteAllTextAsync(appointmentPath, json);
+        }
+
+        public async Task<List<AgentResult>> SaveAgentResultAsync(string tempJson)
+        {
+            var newAppointments = JsonSerializer.Deserialize<List<AgentResult>>(tempJson,  myJsonOptions)
+                            ?? new List<AgentResult>();
+
+            var existing = await loadAppointmentsAsync();
+            existing.AddRange(newAppointments);
+
+            await SaveAppointmentsAsync(existing);
+
+            return newAppointments;
+        }
+
+        public async Task<IEnumerable<AgentResult>> GetAllAppointmentsAsync()
+        {
+            return await loadAppointmentsAsync();
         }
     }
 }

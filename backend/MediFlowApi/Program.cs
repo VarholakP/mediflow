@@ -23,6 +23,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddSingleton<TimeSlotService>();
 builder.Services.AddSingleton<AppointmentService>();
+builder.Services.AddSingleton<AgentResultService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
