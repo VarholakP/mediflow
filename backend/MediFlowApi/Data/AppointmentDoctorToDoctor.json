@@ -1,7 +1,18 @@
-{
-  "patientName": "Lucia Horváthová",
-  "doctorName": "MUDr. Anna Farkašová",
-  "address": "Trieda SNP 1, 040 11 Košice",
-  "appointmentDate": "10:20 - 10:50",
-  "reason": "Vyšetrenie pre diskomfort v podbrušku a neštandardný vaginálny výtok."
-}
+[
+  {
+    "patientName": "Tomáš Bielik",
+    "doctorName": "MUDr. Katarína Molnárová",
+    "specialization": "Ophthalmology",
+    "address": "Trieda SNP 1, 040 11 Košice",
+    "appointmentDate": "09:10 - 09:40",
+    "reason": "Pacient udáva bolesť oka, potrebné oftalmologické vyšetrenie."
+  },
+  {
+    "patientName": "Martin Kováč",
+    "doctorName": "MUDr. Tomáš Bielik",
+    "specialization": "Orthopedics",
+    "address": "Trieda SNP 1, 040 11 Košice",
+    "appointmentDate": "09:10 - 09:40",
+    "reason": "Pacient udáva bolesť nohy, vhodné ortopedické vyšetrenie na zhodnotenie kostí, kĺbov a mäkkých tkanív dolnej končatiny."
+  }
+]

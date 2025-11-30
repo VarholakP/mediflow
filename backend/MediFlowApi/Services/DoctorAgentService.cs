@@ -12,6 +12,12 @@ namespace MediFlowApi.Services
         private readonly HttpClient _httpClient;
         private readonly string _openAiApiKey;
 
+        public List<Appointment> GetAllAppointments(){
+            string filePath = Path.Combine("Data", "AppointmentDoctorToDoctor.json");
+            var json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<Appointment>>(json);
+        }
+
         public DoctorAgentService(HttpClient httpClient, string openAiApiKey)
         {
             _httpClient = httpClient;
@@ -35,7 +41,7 @@ namespace MediFlowApi.Services
             var systemPrompt = $"Patient name: {patientName}. " +
                 "Here is a list of clinicians with their names, specializations, and addresses: " + cliniciansInfo + ". " +
                 "Based on the patient's message, determine the most suitable medical specialization. Then, select a doctor from the list of clinicians who matches that specialization. " +
-                "Respond only in JSON with the following fields: patientName, doctorName, address, appointmentDate, reason. " +
+                "Respond only in JSON with the following fields: patientName, doctorName, specialization, address, appointmentDate, reason." +
                 $"Set the patientName field to the patient's name: {patientName}. " +
                 $"Valid appointmentDate values: {validSlots}. " +
                 "Do not invent new doctors, addresses, dates, or patient names. Only use these values.";
@@ -67,6 +73,8 @@ namespace MediFlowApi.Services
 
         public async Task<Appointment> GetAppointmentFromAIAsync(PatientMessage message)
         {
+
+            List<Appointment> appointments;
             string filePath = Path.Combine("Data", "AppointmentDoctorToDoctor.json");
             string aiResponse = await AnalyzeMessageWithAIAsync(message);
             Console.WriteLine("AI Response: " + aiResponse);
@@ -80,7 +88,16 @@ namespace MediFlowApi.Services
                 throw new Exception("The appointment details provided by the AI are invalid.");
             }
 
-            File.WriteAllText(filePath, JsonConvert.SerializeObject(appointment, Formatting.Indented));
+            if(File.Exists(filePath)){
+                var existingJson = File.ReadAllText(filePath);
+                appointments = JsonConvert.DeserializeObject<List<Appointment>>(existingJson) ?? new List<Appointment>();
+            }else{
+                appointments = new List<Appointment>();
+            }
+
+            appointments.Add(appointment);
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(appointments, Formatting.Indented));
+
             return appointment; 
         }
 
@@ -99,14 +116,14 @@ namespace MediFlowApi.Services
         }
 
         
-            private List<Patient> LoadPatients()
+        private List<Patient> LoadPatients()
             {
                 var path = Path.Combine("Data", "patients.json");
                 var json = File.ReadAllText(path);
                 return JsonConvert.DeserializeObject<List<Patient>>(json);
             }
 
-            private string GetPatientNameById(string patientId)
+        private string GetPatientNameById(string patientId)
             {
                 var patients = LoadPatients();
                 var patient = patients.FirstOrDefault(p => p.id == patientId);
@@ -120,5 +137,6 @@ namespace MediFlowApi.Services
 
             return clinician != null && timeslot != null;
         }
+    
     }
 }
