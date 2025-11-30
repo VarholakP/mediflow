@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.SignalR;
-
 namespace MediFlowApi.Models
 {
     public class AgentMessage

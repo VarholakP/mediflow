@@ -12,19 +12,21 @@ namespace MediFlowApi.Services
         private readonly string myApiKey;
         private readonly AppointmentService myAppointmentService;
         private readonly TimeSlotService myTimeSlotService;
+        private readonly DoctorAgentService myDoctorService;
         private readonly JsonSerializerOptions myJsonOptions = new()
         {
             PropertyNameCaseInsensitive = true,
             WriteIndented = true
         };
 
-        public AgentResultService(HttpClient client, IConfiguration config, AppointmentService appService, TimeSlotService timeSlotService)
+        public AgentResultService(HttpClient client, IConfiguration config, AppointmentService appService, TimeSlotService timeSlotService, DoctorAgentService doctorService)
         {
             myHttpClient = client;
             myApiKey = config["OpenAI:ApiKey"]?.Trim()
                 ?? throw new InvalidOperationException("Missing OpenAI API key");
             myAppointmentService = appService;
             myTimeSlotService = timeSlotService;
+            myDoctorService = doctorService;
         }
 
         public async Task<List<AgentResult>> ProcessPatientMessageAsync(AgentMessage message, CancellationToken ct = default)
@@ -54,7 +56,7 @@ to create a general practitioner appointment request.
 You must always return a valid JSON array with exactly one object inside it.
 The JSON must use these exact fields and spelling:
 
-- AppointmentId
+- PatientId:
 - ClinicianName
 - Specialization
 - Issue
@@ -69,7 +71,7 @@ Do not include code block formatting.
 Valid response example:
 [
   {
-    ""AppointmentId"": ""1"",
+    ""PatientId"": ""1"",
     ""ClinicianName"": ""Mudr. Petra Svobodová"",
     ""Specialization"": ""General Medicine"",
     ""Issue"": ""Routine Check-up"",
@@ -80,7 +82,7 @@ Valid response example:
 ]
 
 Rules:
-- AppointmentId is a string, you do NOT have to ensure uniqueness.
+- Alwayuse use PatientId = ""1"".
 - Always use ClinicianName = ""Mudr. Petra Svobodová"" and Specialization = ""General Medicine"" unless told otherwise.
 - Issue must be derived from the user's message. If not specified, use ""Unknown issue"".
 - AppointmentDate should be today's date in format YYYY-MM-DD.
