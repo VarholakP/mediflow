@@ -3,9 +3,7 @@ import { NavLink } from "react-router";
 
 
 const navItems = [
-  { label: "Home", to: "/" },
   { label: "Appointments", to: "/appointments" },
-  { label: "New Appointment", to: "/create-appointment" },
 ];
 
 interface SidebarLayoutProps {
@@ -21,7 +19,6 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
         background: "#f9fafb",
       }}
     >
-      {/* SIDEBAR */}
       <aside
         style={{
           width: "280px",             
@@ -30,7 +27,7 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
           background: "#ffffff",
         }}
       >
-        {/* LOGO */}
+
 <div
   style={{
     display: "flex",
@@ -85,7 +82,6 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
         </nav>
       </aside>
 
-      {/* CONTENT */}
       <main
         style={{
           flex: 1,

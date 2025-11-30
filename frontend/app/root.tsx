@@ -12,6 +12,8 @@ import "./app.css";
 import { Provider } from "./components/ui/provider";
 import { SidebarLayout } from "./components/ui/sidebar/SidebarLayout";
 
+import { Toaster } from "./components/ui/toaster"
+
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -50,9 +52,11 @@ export function loader({}: Route.LoaderArgs) {
 export default function App() {
   return (
     <Provider>
-<SidebarLayout>
-  <Outlet />
-</SidebarLayout>
+      <SidebarLayout>
+        <Outlet />
+      </SidebarLayout>
+
+      <Toaster />
     </Provider>
   );
 }
