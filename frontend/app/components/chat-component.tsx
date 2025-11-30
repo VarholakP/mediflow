@@ -11,7 +11,7 @@ interface messageObject {
 }
 
 interface messageJsonObject {
-    message:string 
+    prompt:string 
 }
 
 function getTimestamp() {
@@ -24,8 +24,8 @@ function getTimestamp() {
 }
 
 
-function sendMessage(message: messageObject) {
-    return fetch("/api/chat", {
+function sendMessage(message: messageJsonObject) {
+    return fetch("/api/patientagent/process", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -41,7 +41,7 @@ async function fetchAIResponse(message: messageJsonObject): Promise<messageObjec
             headers: {
             "Content-Type": "application/json"
             },
-            body: JSON.stringify({ message: message.message })
+            body: JSON.stringify({ message: message.prompt })
         });
         const data = await response.json();
         return {
@@ -67,15 +67,16 @@ function ChatComponent() {
     const handleSend = async () => {
         if (inputValue.trim() === "") return;
         const messageObject = { message: inputValue, user: true, timestamp: getTimestamp() };
+        const messageJsonObject = { prompt: inputValue }
         setMessages(prev => [
             ...prev,
             messageObject
         ]);
         setInputValue("");
-        sendMessage(messageObject);
+        sendMessage(messageJsonObject);
 
         // Fetch AI response and add to chat log
-        const aiReply = await fetchAIResponse(messageObject);
+        const aiReply = await fetchAIResponse(messageJsonObject);
         setMessages(prev => [
             ...prev,
             aiReply
