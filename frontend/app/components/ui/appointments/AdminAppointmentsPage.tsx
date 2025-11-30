@@ -1,26 +1,29 @@
+
 import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { AppointmentCard } from "./AppointmentCard";
-import type { Appointment } from "./types";
+import { AdminAppointmentCard } from "./AdminAppointmentCards";
+import type { AdminAppointment } from "./AdminAppointments";
 
-export function UpcomingAppointments() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+export function AdminAppointmentsPage() {
+  const [appointments, setAppointments] = useState<AdminAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadAppointments = async () => {
       try {
-        const res = await fetch("http://localhost:5209/api/appointment/appointments");
+        const res = await fetch(
+          "http://localhost:5209/api/DoctorAgent/getAllAppointments"
+        );
 
         if (!res.ok) {
           throw new Error(`HTTP error ${res.status}`);
         }
 
-        const data: Appointment[] = await res.json();
+        const data: AdminAppointment[] = await res.json();
         setAppointments(data);
       } catch (err: any) {
-        console.error("Error loading appointments:", err);
+        console.error("Error loading doctor appointments:", err);
         setError(err.message ?? "Unknown error");
       } finally {
         setLoading(false);
@@ -33,7 +36,7 @@ export function UpcomingAppointments() {
   if (loading) {
     return (
       <Text px={4} py={6}>
-        Loading appointments…
+        Loading AI suggested appointments…
       </Text>
     );
   }
@@ -41,7 +44,9 @@ export function UpcomingAppointments() {
   if (error) {
     return (
       <Box px={4} py={6}>
-        <Text color="red.500">Failed to load appointments: {error}</Text>
+        <Text color="red.500">
+          Failed to load doctor appointments: {error}
+        </Text>
       </Box>
     );
   }
@@ -49,31 +54,39 @@ export function UpcomingAppointments() {
   if (appointments.length === 0) {
     return (
       <Box px={4} py={6}>
-        <Text>No appointments found.</Text>
+        <Text>No suggested appointments found.</Text>
       </Box>
     );
   }
+
+  // handler na klik "Create appointment" – zatiaľ len placeholder
+  const handleCreateAppointment = (appt: AdminAppointment) => {
+    console.log("Create real appointment from suggestion:", appt);
+    // tu neskôr spravíš POST na backend alebo otvoríš modal/form
+  };
 
   return (
     <Box w="100%" bg="gray.50" minH="100vh" py={10} px={{ base: 4, md: 8 }}>
       <Box maxW="5xl" mx="auto">
         <Box mb={6}>
           <Text fontSize="2xl" fontWeight="bold">
-            Upcoming Appointments
+            AI suggested appointments for doctors
           </Text>
           <Text fontSize="sm" color="gray.600">
-            Manage and view your scheduled medical appointments.
+            Review AI suggestions and convert them into real appointments.
           </Text>
         </Box>
 
         {appointments.map((appt, index) => (
-          <AppointmentCard
-            key={`${appt.appointmentId ?? index}-${appt.appointmentDate}`}
+          <AdminAppointmentCard
+            key={`${appt.patientName}-${appt.appointmentDate}-${index}`}
             appointment={appt}
             isHighlighted={index === 0}
+            onCreateAppointment={handleCreateAppointment}
           />
         ))}
       </Box>
     </Box>
   );
 }
+
