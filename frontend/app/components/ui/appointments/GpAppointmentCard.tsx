@@ -73,7 +73,7 @@ export function GpAppointmentCard({
         <Box flex="1" mr={6}>
           <Box mb={4}>
             <Text fontWeight="semibold" fontSize="lg" color="gray.800">
-              {appointment.clinicianName}
+              {appointment.patientName}
             </Text>
             {appointment.specialization && (
               <Text fontSize="sm" color="#619DCD">
