@@ -59,9 +59,7 @@ export function AdminAppointmentCard({
       mb={4}
     >
       <Flex justify="space-between" align="flex-start">
-        {/* ľavá strana – info pre lekára */}
         <Box flex="1" mr={6}>
-          {/* pacient */}
           <Box mb={3}>
             <Flex align="center">
               <Box as={LuUser} mr={2} />
@@ -74,7 +72,6 @@ export function AdminAppointmentCard({
             </Text>
           </Box>
 
-          {/* odporúčaný doktor + špecializácia */}
           <Box mb={3}>
             <Text fontSize="sm" color="gray.600">
               Recommended doctor:&nbsp;
@@ -90,7 +87,6 @@ export function AdminAppointmentCard({
             </Text>
           </Box>
 
-          {/* info bloky */}
           <Flex
             direction={{ base: "column", md: "row" }}
             flexWrap="wrap"
@@ -144,32 +140,12 @@ export function AdminAppointmentCard({
           </Badge>
         </Box>
 
-        {/* pravá strana – akcie pre lekára/admina */}
         <Box
           minWidth="160px"
           display="flex"
           flexDirection="column"
           alignItems="flex-end"
         >
-          <Button
-            size="sm"
-            colorScheme="purple"
-            borderRadius="999px"
-            width="160px"
-            mb={2}
-            onClick={() => onCreateAppointment?.(appointment)}
-          >
-            Create appointment
-          </Button>
-
-          <Button
-            size="sm"
-            variant="outline"
-            borderRadius="999px"
-            width="160px"
-          >
-            View details
-          </Button>
         </Box>
       </Flex>
     </Box>

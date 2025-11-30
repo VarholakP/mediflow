@@ -2,9 +2,10 @@ import { Box, Flex, Text, Badge, Button } from "@chakra-ui/react";
 import { LuCalendarDays, LuClock, LuFileText, LuMapPin } from "react-icons/lu";
 import type { Appointment } from "./types";
 
-interface GpAppointmentCardProps {
+interface AppointmentCardProps {
   appointment: Appointment;
   isHighlighted?: boolean;
+  onCreateAppointment?: (appointment: Appointment) => void; // 🔹 PRIDANÉ
 }
 
 function getDateAndTimeLabels(appointmentDate: string, timeSlot: string) {
@@ -19,7 +20,6 @@ function getDateAndTimeLabels(appointmentDate: string, timeSlot: string) {
       })
     : appointmentDate;
 
-  // čas buď z timeSlot, alebo (fallback) z appointmentDate
   const timeLabel =
     timeSlot ||
     (hasValidDate
@@ -32,7 +32,11 @@ function getDateAndTimeLabels(appointmentDate: string, timeSlot: string) {
   return { dateLabel, timeLabel };
 }
 
-export function AppointmentCard({ appointment, isHighlighted }: GpAppointmentCardProps) {
+export function GpAppointmentCard({
+  appointment,
+  isHighlighted,
+  onCreateAppointment,
+}: AppointmentCardProps) {
   const { dateLabel, timeLabel } = getDateAndTimeLabels(
     appointment.appointmentDate,
     appointment.timeSlot
@@ -40,7 +44,6 @@ export function AppointmentCard({ appointment, isHighlighted }: GpAppointmentCar
 
   const now = new Date();
 
-  // pokusíme sa spraviť plný Date z dátumu + času
   let appDate = new Date(appointment.appointmentDate);
   const combined = new Date(`${appointment.appointmentDate}T${appointment.timeSlot}`);
 
@@ -65,7 +68,6 @@ export function AppointmentCard({ appointment, isHighlighted }: GpAppointmentCar
       mb={4}
     >
       <Flex justify="space-between" align="flex-start">
-        {/* ľavá strana */}
         <Box flex="1" mr={6}>
           <Box mb={4}>
             <Text fontWeight="semibold" fontSize="lg">
@@ -119,9 +121,8 @@ export function AppointmentCard({ appointment, isHighlighted }: GpAppointmentCar
             </Flex>
           </Flex>
         </Box>
-
         <Box
-          minWidth="120px"
+          minWidth="160px"
           display="flex"
           flexDirection="column"
           alignItems="flex-end"
@@ -138,6 +139,16 @@ export function AppointmentCard({ appointment, isHighlighted }: GpAppointmentCar
               Soon
             </Badge>
           )}
+          <Button
+            size="sm"
+            colorScheme="purple"
+            borderRadius="999px"
+            width="160px"
+            mb={2}
+            onClick={() => onCreateAppointment?.(appointment)}
+          >
+            Create appointment
+          </Button>
         </Box>
       </Flex>
     </Box>

@@ -52,7 +52,7 @@ namespace MediFlowApi.Services
                 messages = new[]
                 {
                     new { role = "system", content = systemPrompt },
-                    new { role = "user", content = message.message }
+                    new { role = "user", content = message.issue }
                 }
             };
 
