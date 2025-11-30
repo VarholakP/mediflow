@@ -7,6 +7,7 @@ namespace MediFlowApi.Services
     public class AppointmentService
     {
         private readonly string appointmentPath;
+        private readonly string patientsPath;
         private readonly JsonSerializerOptions myJsonOptions = new()
         {
             PropertyNameCaseInsensitive = true,
@@ -16,6 +17,15 @@ namespace MediFlowApi.Services
         public AppointmentService(IWebHostEnvironment env)
         {
             appointmentPath = Path.Combine(env.ContentRootPath, "Data", "patientAgentResult.json");
+            patientsPath = Path.Combine(env.ContentRootPath, "Data", "patients.json");
+        }
+
+        private async Task<List<Patient>> LoadPatientAsync()
+        {
+            var json = File.ReadAllText(patientsPath);
+            return JsonSerializer.Deserialize<List<Patient>>(json, myJsonOptions)
+                ?? new List<Patient>();
+
         }
 
         private async Task<List<AgentResult>> loadAppointmentsAsync()
@@ -45,9 +55,14 @@ namespace MediFlowApi.Services
             {
                 nextId = 1;
             }
+
+            var patients = await LoadPatientAsync();
             foreach (var item in newAppointments)
             {
                 item.PatientId = nextId.ToString();
+
+                var patient = patients.FirstOrDefault(p => p.id.ToString() == item.PatientId);
+                item.PatientName = patient?.name ?? "Unknown patient";
                 nextId++;
 
                 if (nextId > 5)
