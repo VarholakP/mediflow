@@ -60,7 +60,6 @@ export function AdminAppointmentCard({
     >
       <Flex justify="space-between" align="flex-start">
         <Box flex="1" mr={6}>
-          {/* Patient name */}
           <Box mb={3}>
             <Flex align="center">
               <Box as={LuUser} mr={2} color="#619DCD" />
@@ -73,7 +72,6 @@ export function AdminAppointmentCard({
             </Text>
           </Box>
 
-          {/* Doctor info */}
           <Box mb={3}>
             <Text fontSize="sm" color="gray.600">
               Recommended doctor:&nbsp;
@@ -89,7 +87,6 @@ export function AdminAppointmentCard({
             </Text>
           </Box>
 
-          {/* Details */}
           <Flex
             direction={{ base: "column", md: "row" }}
             flexWrap="wrap"
