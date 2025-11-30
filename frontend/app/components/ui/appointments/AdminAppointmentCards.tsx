@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Badge, Button } from "@chakra-ui/react";
+import { Box, Flex, Text, Badge } from "@chakra-ui/react";
 import {
   LuCalendarDays,
   LuClock,
@@ -6,7 +6,7 @@ import {
   LuMapPin,
   LuUser,
 } from "react-icons/lu";
-import type { AdminAppointment } from "./AdminAppointments"; 
+import type { AdminAppointment } from "./AdminAppointments";
 
 interface AdminDoctorAppointmentCardProps {
   appointment: AdminAppointment;
@@ -49,21 +49,22 @@ export function AdminAppointmentCard({
     <Box
       borderWidth="1px"
       borderRadius="2xl"
-      borderColor={isHighlighted ? "purple.400" : "gray.200"}
+      borderColor={isHighlighted ? "#619DCD" : "gray.200"}
       bg="white"
       px={6}
       py={5}
-      boxShadow={isHighlighted ? "lg" : "sm"}
+      boxShadow={isHighlighted ? "0 0 10px #619DCD55" : "sm"}
       _hover={{ boxShadow: "lg", transform: "translateY(-2px)" }}
       transition="all 0.15s ease-out"
       mb={4}
     >
       <Flex justify="space-between" align="flex-start">
         <Box flex="1" mr={6}>
+          {/* Patient name */}
           <Box mb={3}>
             <Flex align="center">
-              <Box as={LuUser} mr={2} />
-              <Text fontWeight="semibold" fontSize="lg">
+              <Box as={LuUser} mr={2} color="#619DCD" />
+              <Text fontWeight="semibold" fontSize="lg" color="gray.800">
                 {appointment.patientName}
               </Text>
             </Flex>
@@ -72,58 +73,60 @@ export function AdminAppointmentCard({
             </Text>
           </Box>
 
+          {/* Doctor info */}
           <Box mb={3}>
             <Text fontSize="sm" color="gray.600">
               Recommended doctor:&nbsp;
-              <Text as="span" fontWeight="medium">
+              <Text as="span" fontWeight="medium" color="gray.800">
                 {appointment.doctorName}
               </Text>
             </Text>
             <Text fontSize="sm" color="gray.600">
               Specialization:&nbsp;
-              <Text as="span" fontWeight="medium">
+              <Text as="span" fontWeight="medium" color="#619DCD">
                 {appointment.specialization}
               </Text>
             </Text>
           </Box>
 
+          {/* Details */}
           <Flex
             direction={{ base: "column", md: "row" }}
             flexWrap="wrap"
             columnGap={8}
             rowGap={3}
             fontSize="sm"
-            color="gray.600"
+            color="gray.700"
           >
             <Flex align="flex-start" minWidth="200px" mr={4} mb={3}>
-              <Box as={LuCalendarDays} mt={1} mr={2} />
+              <Box as={LuCalendarDays} mt={1} mr={2} color="#619DCD" />
               <Box>
-                <Text fontWeight="medium">Date</Text>
-                <Text>{dateLabel}</Text>
+                <Text fontWeight="medium" color="gray.600">Date</Text>
+                <Text color="gray.800">{dateLabel}</Text>
               </Box>
             </Flex>
 
             <Flex align="flex-start" minWidth="140px" mr={4} mb={3}>
-              <Box as={LuClock} mt={1} mr={2} />
+              <Box as={LuClock} mt={1} mr={2} color="#619DCD" />
               <Box>
-                <Text fontWeight="medium">Time</Text>
-                <Text>{timeLabel || "—"}</Text>
+                <Text fontWeight="medium" color="gray.600">Time</Text>
+                <Text color="gray.800">{timeLabel || "—"}</Text>
               </Box>
             </Flex>
 
             <Flex align="flex-start" minWidth="220px" mr={4} mb={3}>
-              <Box as={LuMapPin} mt={1} mr={2} />
+              <Box as={LuMapPin} mt={1} mr={2} color="#619DCD" />
               <Box>
-                <Text fontWeight="medium">Workplace</Text>
-                <Text>{appointment.address}</Text>
+                <Text fontWeight="medium" color="gray.600">Workplace</Text>
+                <Text color="gray.800">{appointment.address}</Text>
               </Box>
             </Flex>
 
             <Flex align="flex-start" minWidth="220px" mr={4} mb={3}>
-              <Box as={LuFileText} mt={1} mr={2} />
+              <Box as={LuFileText} mt={1} mr={2} color="#619DCD" />
               <Box>
-                <Text fontWeight="medium">Reason / problem</Text>
-                <Text>{appointment.reason}</Text>
+                <Text fontWeight="medium" color="gray.600">Reason / problem</Text>
+                <Text color="gray.800">{appointment.reason}</Text>
               </Box>
             </Flex>
           </Flex>
@@ -133,8 +136,8 @@ export function AdminAppointmentCard({
             borderRadius="999px"
             px={3}
             py={1}
-            colorScheme="purple"
-            variant="subtle"
+            bg="#619DCD22"
+            color="#619DCD"
           >
             AI suggestion for doctor
           </Badge>
@@ -145,8 +148,7 @@ export function AdminAppointmentCard({
           display="flex"
           flexDirection="column"
           alignItems="flex-end"
-        >
-        </Box>
+        ></Box>
       </Flex>
     </Box>
   );
