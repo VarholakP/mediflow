@@ -41,9 +41,9 @@ namespace MediFlowApi.Services
             var systemPrompt = $"Patient name: {patientName}. " +
                 "Here is a list of clinicians with their names, specializations, and addresses: " + cliniciansInfo + ". " +
                 "Based on the patient's message, determine the most suitable medical specialization. Then, select a doctor from the list of clinicians who matches that specialization. " +
-                "Respond only in JSON with the following fields: patientName, doctorName, specialization, address, appointmentDate, reason." +
+                "Respond only in JSON with the following fields: patientName, doctorName, specialization, address, appointmentDate(that will send today's date in format (YYYY.MM.DD)), TimeSlot, reason." +
                 $"Set the patientName field to the patient's name: {patientName}. " +
-                $"Valid appointmentDate values: {validSlots}. " +
+                $"Valid TimeSlot values: {validSlots}. " +
                 "Do not invent new doctors, addresses, dates, or patient names. Only use these values.";
 
             var requestBody = new
@@ -133,7 +133,7 @@ namespace MediFlowApi.Services
         private bool IsValidAppointment(Appointment appointment, List<Clinician> clinicians, List<TimeSlot> timeslots)
         {
             var clinician = clinicians.FirstOrDefault(c => c.ClinicianName == appointment.doctorName && c.Address == appointment.address);
-            var timeslot = timeslots.FirstOrDefault(t => t.slot == appointment.appointmentDate && t.available);
+            var timeslot = timeslots.FirstOrDefault(t => t.slot == appointment.TimeSlot && t.available);
 
             return clinician != null && timeslot != null;
         }

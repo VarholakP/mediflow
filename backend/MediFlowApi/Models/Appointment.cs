@@ -8,5 +8,7 @@ namespace MediFlowApi.Models
         public string address { get; set; } = string.Empty;
         public string appointmentDate { get; set; } = string.Empty;
         public string reason { get; set; } = string.Empty;
+
+        public string TimeSlot { get; set; } = string.Empty;
     }
 }

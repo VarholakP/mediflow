@@ -25,5 +25,14 @@
     "AppointmentDate": "2025-11-30",
     "TimeSlot": "08:00 - 08:30",
     "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
+  },
+  {
+    "PatientId": "3",
+    "ClinicianName": "Mudr. Petra Svobodov\u00E1",
+    "Specialization": "General Medicine",
+    "Issue": "N\u00E1hle v\u00FDrazn\u00E9 \u0165a\u017Ekosti doln\u00FDch kon\u010Dat\u00EDn",
+    "AppointmentDate": "2025-11-30",
+    "TimeSlot": "08:00 - 08:30",
+    "Address": "Trieda SNP 1, 040 11 Ko\u0161ice"
   }
 ]
